@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,20 +9,31 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .animate-fadeInUp {
-      animation: fadeInUp 1s cubic-bezier(.4,0,.2,1) both;
+      animation: fadeInUp 1s cubic-bezier(.4, 0, .2, 1) both;
     }
+
     .glass {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
+
     .neon {
       text-shadow: 0 0 8px #38bdf8, 0 0 16px #2563eb;
     }
+
     .gradient-border {
       border: 2px solid transparent;
       border-image: linear-gradient(90deg, #38bdf8 0%, #6366f1 100%);
@@ -29,6 +41,7 @@
     }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 min-h-screen text-gray-800 font-sans">
 
   <!-- Navbar -->
@@ -38,7 +51,8 @@
       <nav class="flex flex-wrap justify-center gap-2 sm:gap-6 text-base font-medium">
         <a href="index.html" class="hover:text-blue-700 transition">Home</a>
         <a href="about.html" class="hover:text-blue-700 transition">About</a>
-        <a href="admissions.html" class="text-blue-700 font-semibold underline underline-offset-4 decoration-2 decoration-blue-400">Admissions</a>
+        <a href="admissions.html"
+          class="text-blue-700 font-semibold underline underline-offset-4 decoration-2 decoration-blue-400">Admissions</a>
         <a href="career.html" class="hover:text-blue-700 transition">Career</a>
         <a href="gallery.html" class="hover:text-blue-700 transition">Gallery</a>
         <a href="contact.html" class="hover:text-blue-700 transition">Contact</a>
@@ -50,14 +64,15 @@
   <section class="bg-gradient-to-br from-blue-600 via-indigo-700 to-blue-900 text-white text-center py-16 px-6">
     <div class="max-w-3xl mx-auto animate-fadeInUp">
       <h2 class="text-4xl font-extrabold mb-4 neon">Admissions Open</h2>
-      <p class="text-lg font-medium">Join a nurturing environment focused on growth, values, and academic excellence.</p>
+      <p class="text-lg font-medium">Join a nurturing environment focused on growth, values, and academic excellence.
+      </p>
     </div>
   </section>
 
   <!-- Admissions Info + Form -->
   <section class="py-16 px-4">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-      
+
       <!-- Info Box -->
       <div class="glass p-8 rounded-2xl shadow-xl animate-fadeInUp space-y-6">
         <h3 class="text-2xl font-bold text-blue-700">Why Choose Us?</h3>
@@ -81,9 +96,17 @@
       <div class="glass p-8 rounded-2xl shadow-xl animate-fadeInUp space-y-6">
         <h3 class="text-2xl font-bold neon text-center">Admission Form</h3>
         <form id="admissionForm" class="space-y-4">
-          <input type="text" name="name" placeholder="Full Name" required class="w-full p-3 border rounded-lg" />
+          <input type="text" name="name" placeholder="Full Name" required pattern="[A-Za-z ]+"
+            title="Only alphabets and spaces are allowed" oninput="this.value = this.value.replace(/[^A-Za-z ]/g, '')"
+            class="w-full p-3 border rounded-lg" />
+
           <input type="email" name="email" placeholder="Email Address" required class="w-full p-3 border rounded-lg" />
-          <input type="tel" name="phone" placeholder="Phone Number" required class="w-full p-3 border rounded-lg" />
+          <input type="text" name="phone" placeholder="Phone Number (10 digits)" required pattern="[6-9]{1}[0-9]{9}"
+            maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
+            onpaste="event.preventDefault()" title="Enter a valid 10-digit Indian mobile number starting with 6-9"
+            class="w-full p-3 border rounded-lg" />
+
+
           <select name="grade" required class="w-full p-3 border rounded-lg">
             <option value="">Select Grade</option>
             <option>Nursery</option>
@@ -101,8 +124,10 @@
             <option>11th Grade</option>
             <option>12th Grade</option>
           </select>
-          <textarea name="message" placeholder="Why do you want to join us?" rows="4" class="w-full p-3 border rounded-lg"></textarea>
-          <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-lg hover:scale-105 transition-all">Submit</button>
+          <textarea name="message" placeholder="Why do you want to join us?" rows="4"
+            class="w-full p-3 border rounded-lg"></textarea>
+          <button type="submit"
+            class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-lg hover:scale-105 transition-all">Submit</button>
         </form>
         <div id="formStatus" class="text-center text-sm mt-2 text-green-700 hidden">Submitted successfully!</div>
       </div>
@@ -120,40 +145,51 @@
   </footer>
 
   <!-- JavaScript to handle form -->
-   
- <script>
-  const form = document.getElementById("admissionForm");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  <script>
+    const form = document.getElementById("admissionForm");
+    const submitBtn = form.querySelector("button[type='submit']");
 
-    const data = {
-      name: form.name.value,
-      email: form.email.value,
-      phone: form.phone.value,
-      grade: form.grade.value,
-      message: form.message.value,
-    };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    try {
-      await fetch("https://script.google.com/macros/s/AKfycbyUZxMljt6stQFiskd_rH_YGDtXp88k4zYeul7jD4566krx87EofyS9dVhONltd-E3E/exec", {
-        method: "POST",
-        mode: "no-cors", // needed due to Google Apps Script limitations
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
+      // Disable button to prevent multiple clicks
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
 
-      // ✅ Redirect to thankyou.html
-      window.location.href = "thankyou.html";
-    } catch (error) {
-      alert("❌ Error submitting the form. Please try again.");
-      console.error(error);
-    }
-  });
-</script>
+      const data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        grade: form.grade.value,
+        message: form.message.value.trim(),
+      };
+
+      try {
+        await fetch("https://script.google.com/macros/s/AKfycbyUZxMljt6stQFiskd_rH_YGDtXp88k4zYeul7jD4566krx87EofyS9dVhONltd-E3E/exec", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        // Redirect after short delay
+        setTimeout(() => {
+          window.location.href = "thankyou.html";
+        }, 800);
+      } catch (error) {
+        alert("❌ Error submitting the form. Please try again.");
+        console.error("Form Submission Error:", error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
+      }
+    });
+  </script>
+
 
 
 </body>
+
 </html>
