@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,20 +9,31 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <style>
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .animate-fadeInUp {
       animation: fadeInUp 1s ease both;
     }
+
     .glass {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.18);
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
+
     .neon {
       text-shadow: 0 0 8px #38bdf8, 0 0 16px #2563eb;
     }
+
     .gradient-border {
       border: 2px solid transparent;
       border-image: linear-gradient(90deg, #38bdf8 0%, #6366f1 100%);
@@ -29,112 +41,131 @@
     }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 min-h-screen text-gray-800 font-sans">
 
-<!-- Navbar -->
-<header class="bg-white/80 glass shadow-lg sticky top-0 z-50 animate-fadeInUp">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
-    <h1 class="text-3xl font-extrabold neon">My School</h1>
-    <nav class="flex flex-wrap gap-6 text-base font-medium">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="admissions.html">Admissions</a>
-      <a href="career.html" class="text-blue-700 underline font-bold">Career</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- Hero Section -->
-<section class="text-white text-center py-20 px-6 bg-gradient-to-br from-blue-600 via-indigo-700 to-blue-900 relative">
-  <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
-  <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-400/30 rounded-full blur-3xl"></div>
-  <div class="relative z-10 max-w-3xl mx-auto animate-fadeInUp">
-    <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_2glqweqs.json" speed="1" style="width:120px;height:120px" loop autoplay></lottie-player>
-    <h2 class="text-4xl font-extrabold neon">Join Our Team</h2>
-    <p class="text-lg mt-2">We're hiring passionate educators and professionals to grow with us!</p>
-  </div>
-</section>
-
-<!-- Openings + Form -->
-<section class="py-16 px-4">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-    
-    <!-- Openings -->
-    <div class="glass p-8 rounded-3xl shadow-xl space-y-4 animate-fadeInUp">
-      <h3 class="text-2xl font-bold text-blue-700">Current Openings</h3>
-      <ul class="space-y-2 text-left">
-        <li>📘 Math Teacher</li>
-        <li>🔬 Science Teacher</li>
-        <li>🗂️ Admin Assistant</li>
-        <li>💻 IT Support Specialist</li>
-      </ul>
+  <!-- Navbar -->
+  <header class="bg-white/80 glass shadow-lg sticky top-0 z-50 animate-fadeInUp">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
+      <h1 class="text-3xl font-extrabold neon">My School</h1>
+      <nav class="flex flex-wrap gap-6 text-base font-medium">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="career.html" class="text-blue-700 underline font-bold">Career</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Form -->
-    <div class="glass p-8 rounded-3xl shadow-xl animate-fadeInUp">
-      <h3 class="text-2xl font-bold text-indigo-700 text-center mb-4">Application Form</h3>
-      <form id="careerForm" class="space-y-5">
-        <input type="text" name="name" placeholder="Full Name" required class="w-full p-3 rounded-lg border" />
-        <input type="email" name="email" placeholder="Email Address" required class="w-full p-3 rounded-lg border" />
-        <select name="position" required class="w-full p-3 rounded-lg border">
-          <option value="">Position Applying For</option>
-          <option>Math Teacher</option>
-          <option>Science Teacher</option>
-          <option>Administrative Assistant</option>
-          <option>IT Support Specialist</option>
-        </select>
-        <input type="url" name="resume" placeholder="Resume Link (Drive/Dropbox)" required class="w-full p-3 rounded-lg border" />
-        <textarea name="message" placeholder="Cover Letter / Message" rows="4" required class="w-full p-3 rounded-lg border"></textarea>
-        <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-lg shadow-lg">Submit</button>
-        <p id="status" class="text-center text-sm mt-2"></p>
-      </form>
+  <!-- Hero Section -->
+  <section
+    class="text-white text-center py-20 px-6 bg-gradient-to-br from-blue-600 via-indigo-700 to-blue-900 relative">
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-400/30 rounded-full blur-3xl"></div>
+    <div class="relative z-10 max-w-3xl mx-auto animate-fadeInUp">
+      <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_2glqweqs.json" speed="1"
+        style="width:120px;height:120px" loop autoplay></lottie-player>
+      <h2 class="text-4xl font-extrabold neon">Join Our Team</h2>
+      <p class="text-lg mt-2">We're hiring passionate educators and professionals to grow with us!</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
-<footer class="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-800 text-white text-center py-6 text-sm">
-  <p>&copy; 2025 My School. All rights reserved.</p>
-</footer>
+  <!-- Openings + Form -->
+  <section class="py-16 px-4">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
 
-<!-- JS -->
-<script>
-  document.getElementById("careerForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+      <!-- Openings -->
+      <div class="glass p-8 rounded-3xl shadow-xl space-y-4 animate-fadeInUp">
+        <h3 class="text-2xl font-bold text-blue-700">Current Openings</h3>
+        <ul class="space-y-2 text-left">
+          <li>📘 Math Teacher</li>
+          <li>🔬 Science Teacher</li>
+          <li>🗂️ Admin Assistant</li>
+          <li>💻 IT Support Specialist</li>
+        </ul>
+      </div>
 
-    const form = e.target;
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyTvmP_g3PXAG1B2z6wXAq4QnTJuwiG_5kkLai1ZrxL9-cM0MmVTHJcGLWQTIUvUt5VEg/exec";
+      <!-- Form -->
+      <div class="glass p-8 rounded-3xl shadow-xl animate-fadeInUp">
+        <h3 class="text-2xl font-bold text-indigo-700 text-center mb-4">Application Form</h3>
+        <form id="careerForm" class="space-y-5">
+          <input type="text" name="name" placeholder="Full Name" required class="w-full p-3 rounded-lg border" />
+          <input type="email" name="email" placeholder="Email Address" required class="w-full p-3 rounded-lg border" />
+          <select name="position" required class="w-full p-3 rounded-lg border">
+            <option value="">Position Applying For</option>
+            <option>Math Teacher</option>
+            <option>Science Teacher</option>
+            <option>Administrative Assistant</option>
+            <option>IT Support Specialist</option>
+          </select>
+          <input type="url" name="resume" placeholder="Resume Link (Drive/Dropbox)" required
+            class="w-full p-3 rounded-lg border" />
+          <textarea name="message" placeholder="Cover Letter / Message" rows="4" required
+            class="w-full p-3 rounded-lg border"></textarea>
+          <button type="submit"
+            class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 rounded-lg shadow-lg">Submit</button>
+          <p id="status" class="text-center text-sm mt-2"></p>
+        </form>
+      </div>
+    </div>
+  </section>
 
-    const formData = new FormData();
-    formData.append("name", form.name.value);
-    formData.append("email", form.email.value);
-    formData.append("position", form.position.value);
-    formData.append("resume", form.resume.value);
-    formData.append("message", form.message.value);
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-800 text-white text-center py-6 text-sm">
+    <p>&copy; 2025 My School. All rights reserved.</p>
+  </footer>
 
-    try {
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        body: formData,
-      });
+  <!-- JS -->
+  <script>
+    document.getElementById("careerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-      const resultText = await response.text(); // Since it's a simple response
-      if (resultText.includes("success")) {
-        window.location.href = "thankyou.html";
-      } else {
-        document.getElementById("status").textContent = "🚫 Submission failed.";
+      const form = e.target;
+      const submitButton = form.querySelector("button[type='submit']");
+      const status = document.getElementById("status");
+
+      // Disable button & update text
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+
+      const scriptURL = "https://script.google.com/macros/s/AKfycbyTvmP_g3PXAG1B2z6wXAq4QnTJuwiG_5kkLai1ZrxL9-cM0MmVTHJcGLWQTIUvUt5VEg/exec";
+
+      const formData = new FormData();
+      formData.append("name", form.name.value);
+      formData.append("email", form.email.value);
+      formData.append("position", form.position.value);
+      formData.append("resume", form.resume.value);
+      formData.append("message", form.message.value);
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+        });
+
+        const resultText = await response.text();
+        if (resultText.includes("success")) {
+          window.location.href = "thankyou.html";
+        } else {
+          status.textContent = "🚫 Submission failed.";
+          submitButton.disabled = false;
+          submitButton.textContent = "Submit";
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        status.textContent = "🚫 Error submitting form.";
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit";
       }
-    } catch (error) {
-      console.error("Submission error:", error);
-      document.getElementById("status").textContent = "🚫 Error submitting form.";
-    }
-  });
-</script>
+    });
+  </script>
+
 
 
 
 
 </body>
+
 </html>
