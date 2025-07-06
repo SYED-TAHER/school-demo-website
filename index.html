@@ -88,6 +88,8 @@
           </div>
         </div>
 
+      
+
         <!-- Slide 3 -->
         <div class="swiper-slide relative">
           <img
@@ -113,7 +115,10 @@
       </div>
     </div>
 
- 
+    <!-- Centered Heading Overlay -->
+    <div class="absolute top-1/2 w-full text-center transform -translate-y-1/2 z-10">
+      <h2 class="text-white text-4xl font-bold drop-shadow-lg">Welcome to My School</h2>
+    </div>
   </section>
 
 
@@ -178,6 +183,125 @@
       effect: 'fade'
     });
   </script>
+ <!-- ✅ Floating Chatbot -->
+<div id="chatbot-container" class="fixed bottom-6 right-6 z-50">
+<!-- Toggle Chat Button -->
+<button id="chatbot-toggle" onclick="toggleChatbot()" aria-label="Open Chatbot"
+  class="relative bg-blue-600 text-white rounded-full w-14 h-14 shadow-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition animate-bounce">
+  
+  <!-- Ping Animation -->
+  <span class="absolute -top-1 -right-1 flex h-3 w-3">
+    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+  </span>
+
+  💬
+</button>
+
+
+  <!-- Chat Box -->
+  <div id="chatbot-box"
+    class="hidden w-80 max-w-[90vw] h-[480px] bg-white border border-gray-300 rounded-2xl shadow-xl mt-3 flex flex-col overflow-hidden">
+    
+    <!-- Header -->
+    <div class="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Skoolie Bot" class="w-6 h-6" />
+        <h2 class="text-lg font-semibold">Skoolie 🤖</h2>
+      </div>
+      <button onclick="toggleChatbot()" aria-label="Close Chatbot" class="text-white hover:text-gray-200 text-lg">✖</button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chatbot-messages" class="flex-1 p-3 space-y-3 overflow-y-auto bg-gray-50 text-sm">
+      <div class="text-gray-600 text-center italic">Hi! I’m Skoolie. Ask me anything about the school! 🎓</div>
+    </div>
+
+    <!-- Input -->
+    <div class="p-2 border-t bg-white flex items-center gap-2">
+      <input id="chatbot-input" type="text" placeholder="Ask me something..." autocomplete="off"
+        class="flex-1 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <button onclick="sendChatbotMessage()"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ JS -->
+<script>
+  const toggleChatbot = () => {
+    const box = document.getElementById("chatbot-box");
+    box.classList.toggle("hidden");
+    if (!box.classList.contains("hidden")) {
+      playBotSound();
+      document.getElementById("chatbot-input").focus();
+    }
+    
+  };
+  const playBotSound = () => {
+    try {
+      const audio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_6fa78a4452.mp3");
+      audio.volume = 0.5;
+      audio.play().catch((err) => console.warn("🔇 Sound failed:", err));
+    } catch (e) {
+      console.warn("🔇 Audio not supported");
+    }
+  };
+  // Animate only once on load
+  window.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("chatbot-toggle");
+    setTimeout(() => {
+      btn.classList.remove("animate-bounce");
+    }, 3000); // stop bounce after 3s
+  });
+
+  const appendMessage = (message, sender) => {
+    const container = document.getElementById("chatbot-messages");
+    const msg = document.createElement("div");
+    msg.className = sender === "user"
+      ? "text-right bg-blue-100 text-blue-800 p-2 rounded-lg inline-block max-w-[80%] self-end"
+      : "text-left bg-gray-200 text-gray-800 p-2 rounded-lg inline-block max-w-[80%] self-start";
+    msg.innerText = message;
+    container.appendChild(msg);
+    container.scrollTop = container.scrollHeight;
+  };
+
+  const sendChatbotMessage = async () => {
+    const input = document.getElementById("chatbot-input");
+    const question = input.value.trim();
+    if (!question) return;
+    appendMessage(question, "user");
+    input.value = "";
+
+    try {
+      const res = await fetch("https://backendbot-rbx4.onrender.com/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await res.json();
+      appendMessage(data.answer || "❌ Sorry, I couldn’t find an answer.", "bot");
+    } catch (err) {
+      console.error(err);
+      appendMessage("⚠️ Could not reach the server.", "bot");
+    }
+  };
+
+  // Enable "Enter" key to send
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("chatbot-input");
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendChatbotMessage();
+    });
+  });
+</script>
+
+
+
+
+
+
 </body>
 
 </html>
